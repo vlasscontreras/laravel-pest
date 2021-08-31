@@ -28,6 +28,7 @@ jobs:
 
     - name: Lint files 👀
       run: |
+        composer lint:php
         composer lint:phpcs
 
     - name: Run tests 🧪
