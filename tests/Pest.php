@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -25,6 +27,15 @@ uses(Tests\TestCase::class)->in('Feature');
 */
 
 expect()->extend('toBeOne', function () {
-    // phpcs:disable PHPCompatibility.FunctionDeclarations.NewClosure.ThisFoundOutsideClass
     return $this->toBe(1);
 });
+
+/**
+ * Set the currently logged in user for the application.
+ *
+ * @return TestCase
+ */
+function actingAs(Authenticatable $user, string $driver = null)
+{
+    return test()->actingAs($user, $driver);
+}
