@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Providers\RouteServiceProvider;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
