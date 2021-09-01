@@ -39,7 +39,7 @@ it('renders the list of owned repositories', function () {
 
     get('repositories')
         ->assertOk()
-        ->assertSee($repository->id);
+        ->assertSee($repository->url);
 });
 
 it('does not render repositories owned by other users', function () {

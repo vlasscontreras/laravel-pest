@@ -12,17 +12,17 @@
                     <thead>
                         <tr>
                             <th class="px-4 py-2">{{ __('ID') }}</th>
-                            <th class="px-4 py-2">{{ __('Name') }}</th>
+                            <th class="px-4 py-2">{{ __('URL') }}</th>
                             <th class="px-4 py-2">{{ __('Description') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($repositories as $repository)
                             <tr>
-                                <td class="border px-4 py-2">{{ $repository->description }}</td>
+                                <td class="border px-4 py-2">{{ $repository->id }}</td>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('repositories.show', $repository) }}">
-                                        {{ $repository->name }}
+                                        {{ $repository->url }}
                                     </a>
                                 </td>
                                 <td class="border px-4 py-2">{{ $repository->description }}</td>
