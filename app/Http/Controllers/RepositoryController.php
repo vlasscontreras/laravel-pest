@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateRepository;
 use Illuminate\Http\Request;
 
 class RepositoryController extends Controller
@@ -29,12 +30,16 @@ class RepositoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CreateRepository $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRepository $request)
     {
-        //
+        $request->user()
+            ->repositories()
+            ->create($request->validated());
+
+        return redirect()->route('repositories.index');
     }
 
     /**

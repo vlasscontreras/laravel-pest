@@ -11,6 +11,16 @@ class Repository extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var string[]
+     */
+    protected $fillable = [
+        'url',
+        'description',
+    ];
+
+    /**
      * The owner of the repository.
      *
      * @return BelongsTo
