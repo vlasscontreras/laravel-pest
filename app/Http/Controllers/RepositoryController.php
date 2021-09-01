@@ -28,7 +28,7 @@ class RepositoryController extends Controller
     public function index(Request $request)
     {
         return view('repositories.index', [
-            'repositories' => $request->user()->repositories()->paginate(10),
+            'repositories' => $request->user()->repositories()->get(),
         ]);
     }
 
