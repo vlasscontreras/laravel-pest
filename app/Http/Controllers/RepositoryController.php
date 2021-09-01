@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateRepository;
+use App\Http\Requests\UpdateRepository;
+use App\Models\Repository;
 use Illuminate\Http\Request;
 
 class RepositoryController extends Controller
@@ -67,13 +69,15 @@ class RepositoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateRepository  $request
+     * @param  Repository  $repository
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRepository $request, Repository $repository)
     {
-        //
+        $repository->update($request->validated());
+
+        return redirect()->route('repositories.edit', [$repository]);
     }
 
     /**

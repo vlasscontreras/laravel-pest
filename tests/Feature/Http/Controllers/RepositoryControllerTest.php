@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Repository;
+
 use function Pest\Faker\faker;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
@@ -38,6 +40,21 @@ it('can store a new repository', function () {
     ];
 
     post('repositories', $data)->assertRedirect('repositories');
+
+    assertDatabaseHas('repositories', $data);
+});
+
+it('can update an existing repository', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    $data = [
+        'url'         => faker()->url(),
+        'description' => faker()->text(50),
+    ];
+
+    patch("repositories/$repository->id", $data)->assertRedirect("repositories/$repository->id/edit");
 
     assertDatabaseHas('repositories', $data);
 });
