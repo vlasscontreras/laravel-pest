@@ -72,6 +72,14 @@ it('does not show the repository page for repositories owned by someone else', f
         ->assertForbidden();
 });
 
+it('renders the create repository screen', function () {
+    actingAs(createUser());
+
+    get('repositories/create')
+        ->assertOk()
+        ->assertSee(__('Create Repository'));
+});
+
 it('can create a new repository', function () {
     actingAs(createUser());
 
