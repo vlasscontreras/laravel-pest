@@ -11,7 +11,8 @@
 |
 */
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 uses(Tests\TestCase::class)->in('Feature');
 
@@ -31,11 +32,14 @@ expect()->extend('toBeOne', function () {
 });
 
 /**
- * Set the currently logged in user for the application.
+ * Create a random user
  *
- * @return TestCase
+ * @param array $attributes
+ * @param null|Model $parent
+ * @return User
  */
-function actingAs(Authenticatable $user, string $driver = null)
+function createUser($attributes = [], ?Model $parent = null): User
 {
-    return test()->actingAs($user, $driver);
+    $user = User::factory()->create(...func_get_args());
+    return $user;
 }
