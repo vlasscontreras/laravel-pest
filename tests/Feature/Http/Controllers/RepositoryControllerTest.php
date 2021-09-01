@@ -31,7 +31,7 @@ it('requires authentication to delete a repository', function () {
     delete('repositories/1')->assertRedirect('login');
 });
 
-it('can store a new repository', function () {
+it('can create a new repository', function () {
     actingAs(createUser());
 
     $data = [
@@ -42,6 +42,16 @@ it('can store a new repository', function () {
     post('repositories', $data)->assertRedirect('repositories');
 
     assertDatabaseHas('repositories', $data);
+});
+
+it('prevents the repository creation if the request has invalid data', function () {
+    actingAs(createUser());
+
+    post('repositories', [])->assertRedirect()
+        ->assertSessionHasErrors(['url', 'description']);
+
+    post('repositories', ['url' => 'a', 'description' => 'Something'])->assertRedirect()
+        ->assertSessionHasErrors(['url']);
 });
 
 it('can update an existing repository', function () {
@@ -57,4 +67,13 @@ it('can update an existing repository', function () {
     patch("repositories/$repository->id", $data)->assertRedirect("repositories/$repository->id/edit");
 
     assertDatabaseHas('repositories', $data);
+});
+
+it('prevents the repository update if the request has invalid data', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    patch("repositories/$repository->id", ['url' => 'a'])->assertRedirect()
+        ->assertSessionHasErrors(['url']);
 });
