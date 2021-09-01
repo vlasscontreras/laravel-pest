@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Notification;
 use Laravel\Fortify\Features;
@@ -25,7 +24,7 @@ it('can request password reset link', function () {
 
     Notification::fake();
 
-    $user = User::factory()->create();
+    $user = createUser();
 
     post('/forgot-password', [
         'email' => $user->email,
@@ -41,7 +40,7 @@ it('can render the password reset screen', function () {
 
     Notification::fake();
 
-    $user = User::factory()->create();
+    $user = createUser();
 
     post('/forgot-password', [
         'email' => $user->email,
@@ -60,7 +59,7 @@ it('can reset password with a valid token', function () {
 
     Notification::fake();
 
-    $user = User::factory()->create();
+    $user = createUser();
 
     post('/forgot-password', [
         'email' => $user->email,

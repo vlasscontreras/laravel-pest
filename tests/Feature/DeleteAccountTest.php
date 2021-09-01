@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\User;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\DeleteUserForm;
 use Livewire\Livewire;
+
+use function Pest\Laravel\actingAs;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
@@ -12,7 +13,7 @@ it('can delete user accounts', function () {
         return $this->markTestSkipped('Account deletion is not enabled.');
     }
 
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(DeleteUserForm::class)
         ->set('password', 'password')
@@ -26,7 +27,7 @@ it('asks for a valid password before deleting accounts', function () {
         return $this->markTestSkipped('Account deletion is not enabled.');
     }
 
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(DeleteUserForm::class)
         ->set('password', 'wrong-password')

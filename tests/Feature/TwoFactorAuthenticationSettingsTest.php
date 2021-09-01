@@ -1,13 +1,14 @@
 <?php
 
-use App\Models\User;
 use Laravel\Jetstream\Http\Livewire\TwoFactorAuthenticationForm;
 use Livewire\Livewire;
+
+use function Pest\Laravel\actingAs;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can enable two factor authentication', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     $this->withSession(['auth.password_confirmed_at' => time()]);
 
@@ -21,7 +22,7 @@ it('can enable two factor authentication', function () {
 });
 
 it('can regenerate recovery codes', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     $this->withSession(['auth.password_confirmed_at' => time()]);
 
@@ -38,7 +39,7 @@ it('can regenerate recovery codes', function () {
 });
 
 it('can disable two factor authentication', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     $this->withSession(['auth.password_confirmed_at' => time()]);
 

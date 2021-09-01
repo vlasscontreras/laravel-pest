@@ -1,13 +1,14 @@
 <?php
 
-use App\Models\User;
 use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
 use Livewire\Livewire;
+
+use function Pest\Laravel\actingAs;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can read the current profile information', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     $component = Livewire::test(UpdateProfileInformationForm::class);
 
@@ -16,7 +17,7 @@ it('can read the current profile information', function () {
 });
 
 it('can update profile information', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(UpdateProfileInformationForm::class)
         ->set('state', ['name' => 'Test Name', 'email' => 'test@example.com'])

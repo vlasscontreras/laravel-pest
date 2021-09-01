@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Laravel\Fortify\Features;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
@@ -32,7 +33,7 @@ it('can verify emails', function () {
 
     Event::fake();
 
-    $user = User::factory()->create([
+    $user = createUser([
         'email_verified_at' => null,
     ]);
 
@@ -55,7 +56,7 @@ it('cannot verify emails with invalid hash', function () {
         return $this->markTestSkipped('Email verification not enabled.');
     }
 
-    $user = User::factory()->create([
+    $user = createUser([
         'email_verified_at' => null,
     ]);
 
@@ -65,7 +66,7 @@ it('cannot verify emails with invalid hash', function () {
         ['id' => $user->id, 'hash' => sha1('wrong-email')]
     );
 
-    $this->actingAs($user)->get($verificationUrl);
+    actingAs($user)->get($verificationUrl);
 
     $this->assertFalse($user->fresh()->hasVerifiedEmail());
 });

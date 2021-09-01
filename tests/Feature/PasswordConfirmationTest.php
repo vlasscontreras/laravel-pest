@@ -3,6 +3,7 @@
 use App\Models\User;
 use Laravel\Jetstream\Features;
 
+use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
@@ -11,7 +12,7 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 it('can render password confirmation screen', function () {
     $user = Features::hasTeamFeatures()
         ? User::factory()->withPersonalTeam()->create()
-        : User::factory()->create();
+        : createUser();
 
     actingAs($user);
 
@@ -19,9 +20,7 @@ it('can render password confirmation screen', function () {
 });
 
 it('can confirm passwords', function () {
-    $user = User::factory()->create();
-
-    actingAs($user);
+    actingAs($user = createUser());
 
     post('/user/confirm-password', [
         'password' => 'password',
@@ -29,9 +28,7 @@ it('can confirm passwords', function () {
 });
 
 it('prevents password confirmation with invalid password', function () {
-    $user = User::factory()->create();
-
-    actingAs($user);
+    actingAs($user = createUser());
 
     post('/user/confirm-password', [
         'password' => 'wrong-password',

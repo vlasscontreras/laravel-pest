@@ -5,6 +5,8 @@ use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
+
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can create api tokens', function () {
@@ -15,7 +17,7 @@ it('can create api tokens', function () {
     if (Features::hasTeamFeatures()) {
         actingAs($user = User::factory()->withPersonalTeam()->create());
     } else {
-        actingAs($user = User::factory()->create());
+        actingAs($user = createUser());
     }
 
     Livewire::test(ApiTokenManager::class)

@@ -6,6 +6,8 @@ use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
+
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can delete tokens', function () {
@@ -16,7 +18,7 @@ it('can delete tokens', function () {
     if (Features::hasTeamFeatures()) {
         actingAs($user = User::factory()->withPersonalTeam()->create());
     } else {
-        actingAs($user = User::factory()->create());
+        actingAs($user = createUser());
     }
 
     $token = $user->tokens()->create([

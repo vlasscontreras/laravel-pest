@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
 use function Pest\Laravel\get;
@@ -13,7 +12,7 @@ it('can render the login screen', function () {
 });
 
 it('lets users authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = createUser();
 
     post('/login', [
         'email' => $user->email,
@@ -24,7 +23,7 @@ it('lets users authenticate using the login screen', function () {
 });
 
 it('prevents users to authenticate using invalid credentials', function () {
-    $user = User::factory()->create();
+    $user = createUser();
 
     post('/login', [
         'email' => $user->email,

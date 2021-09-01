@@ -1,14 +1,15 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Jetstream\Http\Livewire\UpdatePasswordForm;
 use Livewire\Livewire;
 
+use function Pest\Laravel\actingAs;
+
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 it('can update passwords', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(UpdatePasswordForm::class)
         ->set('state', [
@@ -22,7 +23,7 @@ it('can update passwords', function () {
 });
 
 it('checks that current password is correct', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(UpdatePasswordForm::class)
         ->set('state', [
@@ -37,7 +38,7 @@ it('checks that current password is correct', function () {
 });
 
 it('checks that new passwords match', function () {
-    actingAs($user = User::factory()->create());
+    actingAs($user = createUser());
 
     Livewire::test(UpdatePasswordForm::class)
         ->set('state', [
