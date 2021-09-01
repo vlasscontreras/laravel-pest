@@ -5,6 +5,7 @@ use App\Models\Repository;
 use function Pest\Faker\faker;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 use function Pest\Laravel\patch;
@@ -76,4 +77,24 @@ it('prevents the repository update if the request has invalid data', function ()
 
     patch("repositories/$repository->id", ['url' => 'a'])->assertRedirect()
         ->assertSessionHasErrors(['url']);
+});
+
+it('can delete an existing repository', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    delete("repositories/$repository->id")->assertRedirect('repositories');
+
+    assertDatabaseMissing('repositories', [
+        'id'          => $repository->id,
+        'url'         => $repository->url,
+        'description' => $repository->description,
+    ]);
+});
+
+it('shows a 404 when attempting to delete a repository that does not exist', function () {
+    actingAs(createUser());
+
+    delete('repositories/3446531462514234')->assertNotFound();
 });
