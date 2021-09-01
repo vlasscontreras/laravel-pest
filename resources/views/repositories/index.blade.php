@@ -24,6 +24,9 @@
                                     <a href="{{ route('repositories.show', $repository) }}">
                                         {{ $repository->url }}
                                     </a>
+                                    <a href="{{ route('repositories.edit', $repository) }}">
+                                        {{ __('Edit') }}
+                                    </a>
                                 </td>
                                 <td class="border px-4 py-2">{{ $repository->description }}</td>
                             </tr>

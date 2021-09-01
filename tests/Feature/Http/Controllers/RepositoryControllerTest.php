@@ -53,7 +53,7 @@ it('does not render repositories owned by other users', function () {
         ->assertSee('No repositories found.');
 });
 
-it('renders the repository page', function () {
+it('renders the repository page of an owned repository', function () {
     $repository = Repository::factory()->create();
 
     actingAs($repository->user);
@@ -93,6 +93,26 @@ it('prevents the repository creation if the request has invalid data', function 
 
     post('repositories', ['url' => 'a', 'description' => 'Something'])->assertRedirect()
         ->assertSessionHasErrors(['url']);
+});
+
+it('renders the edit screen for owned repositories', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    get("repositories/$repository->id/edit")
+        ->assertOk()
+        ->assertSee($repository->url)
+        ->assertSee($repository->description);
+});
+
+it('does not render the edit screen for repositories owned by someone else', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs(createUser());
+
+    get("repositories/$repository->id/edit")
+        ->assertForbidden();
 });
 
 it('can update an existing repository', function () {
