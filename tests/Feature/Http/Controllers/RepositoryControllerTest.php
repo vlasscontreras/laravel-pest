@@ -32,6 +32,27 @@ it('requires authentication to delete a repository', function () {
     delete('repositories/1')->assertRedirect('login');
 });
 
+it('renders the list of owned repositories', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    get('repositories')
+        ->assertOk()
+        ->assertSee($repository->id);
+});
+
+it('does not render repositories owned by other users', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs(createUser());
+
+    get('repositories')
+        ->assertOk()
+        ->assertDontSee($repository->url)
+        ->assertSee('No repositories found.');
+});
+
 it('can create a new repository', function () {
     actingAs(createUser());
 
