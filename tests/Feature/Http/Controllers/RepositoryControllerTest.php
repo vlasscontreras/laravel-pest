@@ -79,6 +79,18 @@ it('prevents the repository update if the request has invalid data', function ()
         ->assertSessionHasErrors(['url']);
 });
 
+it('prevents users from updating repositories they do not own', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs(createUser());
+
+    $data = ['url' => faker()->url()];
+
+    patch("repositories/$repository->id", $data)->assertStatus(403);
+
+    assertDatabaseMissing('repositories', array_merge($data, ['id' => $repository->id]));
+});
+
 it('can delete an existing repository', function () {
     $repository = Repository::factory()->create();
 
@@ -97,4 +109,18 @@ it('shows a 404 when attempting to delete a repository that does not exist', fun
     actingAs(createUser());
 
     delete('repositories/3446531462514234')->assertNotFound();
+});
+
+it('prevents users from deleting repositories they do not own', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs(createUser());
+
+    delete("repositories/$repository->id")->assertStatus(403);
+
+    assertDatabaseHas('repositories', [
+        'id'          => $repository->id,
+        'url'         => $repository->url,
+        'description' => $repository->description,
+    ]);
 });
