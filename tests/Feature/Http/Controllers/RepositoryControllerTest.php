@@ -53,6 +53,25 @@ it('does not render repositories owned by other users', function () {
         ->assertSee('No repositories found.');
 });
 
+it('renders the repository page', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs($repository->user);
+
+    get("repositories/$repository->id")
+        ->assertOk()
+        ->assertSee($repository->url);
+});
+
+it('does not show the repository page for repositories owned by someone else', function () {
+    $repository = Repository::factory()->create();
+
+    actingAs(createUser());
+
+    get("repositories/$repository->id")
+        ->assertForbidden();
+});
+
 it('can create a new repository', function () {
     actingAs(createUser());
 
