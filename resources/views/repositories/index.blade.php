@@ -26,9 +26,11 @@
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $repository->id }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                        <a href="{{ $repository->url }}" target="_blank" class="flex flex-wrap">
+                                        <a href="{{ route('repositories.show', $repository) }}" class="flex flex-wrap">
                                             {{ $repository->name }}
-                                            <span class="text-gray-400 w-full">{{ $repository->url }}</span>
+                                        </a>
+                                        <a href="{{ $repository->url }}" target="_blank" class="flex flex-wrap text-gray-400">
+                                            {{ $repository->url }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $repository->description }}</td>
