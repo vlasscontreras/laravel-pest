@@ -39,6 +39,7 @@ it('renders the list of owned repositories', function () {
 
     get('repositories')
         ->assertOk()
+        ->assertSee($repository->name)
         ->assertSee($repository->url);
 });
 

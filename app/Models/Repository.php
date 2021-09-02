@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\URL;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,5 +29,15 @@ class Repository extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the repository path.
+     *
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return URL::getPath($this->url);
     }
 }

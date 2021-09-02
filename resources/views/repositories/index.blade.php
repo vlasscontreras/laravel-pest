@@ -25,9 +25,10 @@
                             @forelse ($repositories as $repository)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $repository->id }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        <a href="{{ $repository->url }}" target="_blank">
-                                            {{ $repository->url }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        <a href="{{ $repository->url }}" target="_blank" class="flex flex-wrap">
+                                            {{ $repository->name }}
+                                            <span class="text-gray-400 w-full">{{ $repository->url }}</span>
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $repository->description }}</td>
