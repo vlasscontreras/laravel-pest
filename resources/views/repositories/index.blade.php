@@ -39,7 +39,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="3">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center" colspan="4">
                                         {{ __('No repositories found.') }}
                                     </td>
                                 </tr>
