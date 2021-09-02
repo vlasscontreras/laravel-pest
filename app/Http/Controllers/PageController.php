@@ -6,7 +6,6 @@ use App\Models\Repository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -18,8 +17,8 @@ class PageController extends Controller
      */
     public function home(): View | Factory
     {
-        return view('welcome', [
-            'repositories' => Repository::latest()->paginate(10),
+        return view('home.index', [
+            'repositories' => Repository::latest()->get(),
         ]);
     }
 

@@ -15,12 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'home']);
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 Route::resource('repositories', RepositoryController::class)->middleware('auth');
 
+Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('{repository}', [PageController::class, 'repository'])->name('repository');
