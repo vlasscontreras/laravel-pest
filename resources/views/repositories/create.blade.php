@@ -38,7 +38,7 @@
 
                         <div class="flex items-center justify-start px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">
                             <x-jet-button type="submit">
-                                {{ __('Save Repository') }}
+                                {{ __('Create Repository') }}
                             </x-jet-button>
                         </div>
                     </form>
