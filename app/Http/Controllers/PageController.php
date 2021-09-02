@@ -22,4 +22,17 @@ class PageController extends Controller
             'repositories' => Repository::latest()->paginate(10),
         ]);
     }
+
+    /**
+     * Show the repository page.
+     *
+     * @return View|Factory
+     * @throws BindingResolutionException
+     */
+    public function repository(Repository $repository): View | Factory
+    {
+        return view('home.repository', [
+            'repository' => $repository,
+        ]);
+    }
 }

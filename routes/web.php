@@ -22,3 +22,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::resource('repositories', RepositoryController::class)->middleware('auth');
+
+Route::get('{repository}', [PageController::class, 'repository'])->name('repository');

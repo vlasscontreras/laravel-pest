@@ -14,3 +14,11 @@ it('all repositories can be listed on the public side', function () {
         ->assertOk()
         ->assertSee($repository->url);
 });
+
+it('can see repository details on the public side', function () {
+    $repository = Repository::factory()->create();
+
+    get("/$repository->id")
+        ->assertOk()
+        ->assertSee($repository->url);
+});
