@@ -10,6 +10,14 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                 <h1>{{ $repository->url }}</h1>
                 <div>{{ $repository->description }}</div>
+
+                <form action="{{ route('repositories.destroy', $repository) }}" method="POST" class="mt-5">
+                    @csrf
+                    @method('DELETE')
+                    <x-jet-danger-button type="submit">
+                        {{ __('Delete Repository') }}
+                    </x-jet-button>
+                </form>
             </div>
         </div>
     </div>
