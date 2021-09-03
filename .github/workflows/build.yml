@@ -36,6 +36,7 @@ jobs:
       uses: php-actions/composer@v6
       with:
         php_version: 8.0
+        php_extensions: zip
 
     - name: Set up Laravel 🔧
       run: |
